@@ -12,12 +12,17 @@ class InertiaTestController extends Controller
     {
         return Inertia::render('Inertia/index',[
             'blogs'=> InertiaTest::all()
+            //キー（vue）に渡す=>モデル名::all()
         ]);
     }
 
     public function show($id)
     {
-        return Inertia::render('Inertia/Show', ['id' => $id]);
+        return Inertia::render('Inertia/Show',
+        [
+        'id' => $id,
+        'blog' => InertiaTest::findOrfail($id)
+        ]);
     }
 
     public function store(Request $request)
@@ -44,5 +49,16 @@ class InertiaTestController extends Controller
     {
 
         return Inertia::render('Inertia/Create');
+    }
+
+    public function delete($id) {
+        $book = InertiaTest::findOrfail($id);
+        $book->delete();
+
+        return to_route('inertia.index')
+            ->with([
+                'message' => '削除しました',
+
+            ]);
     }
 }

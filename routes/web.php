@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\InertiaTestController;
+use App\Models\InertiaTest;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,9 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::delete('/inertia/{id}', [InertiaTestController::class, 'delete'])
+    ->name('inertia.delete');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
