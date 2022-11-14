@@ -4,7 +4,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\InertiaTestController;
+use App\Http\Controllers\ItemController;
 use App\Models\InertiaTest;
+use App\Models\Item;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,8 @@ use App\Models\InertiaTest;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+/* inertiacontroller */
 
 Route::get('/inertia-test', function () {
     return Inertia::render('InertiaTest');
@@ -46,6 +50,11 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+/* itemcontroller */
+Route::resource('/items', ItemController::class)
+    ->middleware(['auth', 'verified']);
+
 
 Route::delete('/inertia/{id}', [InertiaTestController::class, 'delete'])
     ->name('inertia.delete');
