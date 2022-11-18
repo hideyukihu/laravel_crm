@@ -44,7 +44,7 @@ class ItemController extends Controller
             'memo' => $request->memo,
             'price' => $request->price
         ]);
-        return to_route('item.Index');
+        return to_route('item.index');
     }
 
     /**
