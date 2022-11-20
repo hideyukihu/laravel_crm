@@ -44,7 +44,12 @@ class ItemController extends Controller
             'memo' => $request->memo,
             'price' => $request->price
         ]);
-        return to_route('item.index');
+        return to_route('items.index')
+            ->with([
+                'message' => '登録しました',
+                'status' => 'success',
+
+            ]);;
     }
 
     /**
@@ -55,7 +60,6 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-
     }
 
     /**
