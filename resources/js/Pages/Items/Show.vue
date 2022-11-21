@@ -2,12 +2,20 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import { nl2br } from '@/common';
+import { Inertia } from '@inertiajs/inertia';
 // import route from 'vendor/tightenco/ziggy/src/js';
 
 
 defineProps({
     item: Object
 })
+
+const deleteItem = id => {
+    Inertia.delete(route('items.destroy', {item: id}), {
+        onBefore: () => confirm('本当に削除しますか？')
+    })
+}
+
 const storeItem = () => {
     Inertia.post('/items', form)
 }
@@ -73,6 +81,10 @@ const storeItem = () => {
 
                                             <div class="p-2 w-full">
                                                 <Link as="button" :href="route('items.edit', {item: item.id})" class="flex mx-auto text-white bg-indigo-500 px-3 py-3 ont-semibold text-xl  leading-tight">編集</Link>
+                                            </div>
+
+                                            <div class="mt-4 p-2 w-full">
+                                                <button @click="deleteItem(item.id)" class="flex mx-auto text-white bg-red-500 px-3 py-3 ont-semibold text-xl  leading-tight hover:bg-red-500">削除する</button>
                                             </div>
                                         </div>
 
