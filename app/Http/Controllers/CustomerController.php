@@ -55,6 +55,12 @@ class CustomerController extends Controller
             'gender' => $request->gender,
             'memo' => $request->memo,
         ]);
+
+        return to_route('customers.index')
+            ->with([
+                'message' => '登録しました。',
+                'status' => 'success'
+            ]);
     }
 
     /**
