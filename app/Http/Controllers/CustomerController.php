@@ -19,7 +19,7 @@ class CustomerController extends Controller
     {
         $customers = Customer::serchCustomers($request->search)->select('id', 'name', 'kana', 'tel')->paginate(50);
 
-       // dd($customers);
+        // dd($customers);
 
         return Inertia::render('Customers/Index', [
             'customers' => $customers
@@ -33,7 +33,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Customers/Create');
     }
 
     /**
@@ -44,7 +44,17 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-        //
+        Customer::create([
+            'name' => $request->name,
+            'kana' => $request->kana,
+            'tel' => $request->tel,
+            'email' => $request->email,
+            'postcode' => $request->postcode,
+            'address' => $request->address,
+            'birthday' => $request->birthday,
+            'gender' => $request->gender,
+            'memo' => $request->memo,
+        ]);
     }
 
     /**
