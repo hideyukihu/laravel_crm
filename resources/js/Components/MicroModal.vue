@@ -29,6 +29,14 @@ const searchCustomers = async () => {
     }
 }
 
+const emit = defineEmits(['update:customerId'])
+
+const setCustomer = e => {
+    search.value = e.kana
+    emit('update:customerId', e.id)
+    toggleStatus()
+}
+
 </script>
 <template>
     <div v-show="isShow" class="modal" id="modal-1" aria-hidden="true">
@@ -65,7 +73,9 @@ const searchCustomers = async () => {
                             </thead>
                             <tbody>
                                 <tr v-for="customer in customers.value.data" :key="customer.id">
-                                    <td class="px-4 py-3">{{ customer.id }}</td>
+                                    <td class="px-4 py-3">
+                                        <button type="button" class="text-blue-400" @click="setCustomer({id: customer.id, kana:customer.kana})">{{ customer.id }}</button>
+                                    </td>
                                     <td class="px-4 py-3">{{ customer.name }}</td>
                                     <td class="px-4 py-3">{{ customer.kana }}</td>
                                     <td class="px-4 py-3">{{ customer.tel }}</td>

@@ -9,7 +9,6 @@ import MicroModal from '@/Components/MicroModal.vue';
 
 
 const props = defineProps({
-    'customers': Array,
     'items': Array
 })
 
@@ -57,6 +56,11 @@ const storePurchase = () => {
 }
 
 const quantity = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+
+const setCustomerId = (id) => {
+    form.customer_id = id
+}
 </script>
 
 <template>
@@ -88,17 +92,10 @@ const quantity = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
                                             </div>
                                             <div class="p-2 w-full">
                                                 <div class="relative">
-                                                    <MicroModal/>
                                                     <div>
                                                         <label for="customer" class="leading-7 text-sm text-gray-600">会員名</label>
                                                     </div>
-                                                    <select name="customer" v-model="form.customer_id"
-                                                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                                        <option v-for="customer in customers" :value="customer.id"
-                                                            :key="customer.id">
-                                                            {{ customer.id }} : {{ customer.name }}
-                                                        </option>
-                                                    </select>
+                                                    <MicroModal @update:customerId="setCustomerId"/>
                                                 </div>
                                             </div>
                                             <div class="p-2 w-full mx-auto overflow-auto">
